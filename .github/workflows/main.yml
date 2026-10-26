@@ -9,7 +9,7 @@ on:
       - production
 jobs:
   if_error_or_failure:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: message result in slack

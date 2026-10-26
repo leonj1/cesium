@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - uses: actions/checkout@v4
       - name: install node 20
@@ -25,7 +25,7 @@ jobs:
       - name: format code
         run: npm run prettier-check
   coverage:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
@@ -47,7 +47,7 @@ jobs:
         if: ${{ env.AWS_ACCESS_KEY_ID != '' }}
         run: aws s3 sync ./Build/Coverage s3://cesium-public-builds/cesium/$BRANCH/Build/Coverage --delete --color on
   release-tests:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - uses: actions/checkout@v4
       - name: install node 20
@@ -63,7 +63,7 @@ jobs:
       - name: cloc
         run: npm run cloc
   node-18:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - uses: actions/checkout@v4
       - name: install node 18
